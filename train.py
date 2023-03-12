@@ -2,9 +2,8 @@
 # python train.py
 
 
-from tlb import PatchEmbed, CustomRecurrentCell, ModelTrainer, config_cifar10
-
-config = config_cifar10
+from configs.config_cifar import config
+from tlb import CustomRecurrentCell, ModelTrainer, PatchEmbed
 
 # PATCH
 patch_layer = PatchEmbed(
@@ -15,16 +14,16 @@ patch_layer = PatchEmbed(
 )
 
 # RECURRENCE
-cell = CustomRecurrentCell(
+custom_rnn_cell = CustomRecurrentCell(
     chunk_size=config["chunk_size"],
     r=config["r"],
     num_layers=config["num_layers"],
     ffn_dims=config["embed_dim"],
-    ffn_dropout=config["ffn_drop"], 
+    ffn_dropout=config["ffn_drop"],
     num_heads=config["num_heads"],
     key_dim=config["embed_dim"],
     attn_dropout=config["attn_drop"],
 )
 
 
-model = ModelTrainer(patch_layer=patch_layer, custom_cell=cell)
+model = ModelTrainer(patch_layer=patch_layer, custom_cell=custom_rnn_cell)

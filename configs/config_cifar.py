@@ -1,4 +1,4 @@
-config_cifar10 = {
+config = {
     "mixed_precision": True,
     "dataset": "cifar10",
     "train_slice": 40_000,
